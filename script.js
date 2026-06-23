@@ -2,14 +2,16 @@
 function switchTab(tabId) {
     document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
     document.querySelectorAll('.tab-btn').forEach(el => {
-        el.classList.remove('bg-slate-900', 'text-emerald-400', 'border-l-4', 'border-emerald-400');
-        el.classList.add('text-slate-400');
+        el.classList.remove('bg-emerald-50', 'text-if-green', 'border-l-4', 'border-if-green');
+        el.classList.add('text-if-textMuted');
     });
 
     document.getElementById(tabId).classList.remove('hidden');
     const targetBtn = document.getElementById(`btn-${tabId}`);
-    targetBtn.classList.add('bg-slate-900', 'text-emerald-400', 'border-l-4', 'border-emerald-400');
-    targetBtn.classList.remove('text-slate-400');
+    if (targetBtn) {
+        targetBtn.classList.add('bg-emerald-50', 'text-if-green', 'border-l-4', 'border-if-green');
+        targetBtn.classList.remove('text-if-textMuted');
+    }
 }
 
 // --- PUZZLE 1 DATA & LOGIC ---
@@ -29,14 +31,14 @@ function initPuzzle1() {
     container.innerHTML = '';
     urlsData.forEach((item, index) => {
         container.innerHTML += `
-            <div class="bg-slate-950 p-4 rounded-xl border border-slate-800 flex flex-col md:flex-row md:items-center justify-between gap-4">
-                <span class="font-mono text-cyan-400 text-sm md:text-base break-all">${item.url}</span>
+            <div class="bg-if-cardBg p-5 rounded-xl flex flex-col md:flex-row md:items-center justify-between gap-4 border border-gray-200 shadow-sm">
+                <span class="font-mono text-blue-600 font-semibold text-sm tracking-wide break-all">${item.url}</span>
                 <div class="flex gap-2">
-                    <button onclick="selectUrlOption(${index}, true)" id="p1-true-${index}" class="url-opt px-4 py-2 rounded-lg bg-slate-900 border border-slate-700 text-sm hover:border-emerald-500 transition">Seguro</button>
-                    <button onclick="selectUrlOption(${index}, false)" id="p1-false-${index}" class="url-opt px-4 py-2 rounded-lg bg-slate-900 border border-slate-700 text-sm hover:border-red-500 transition">Falso/Inseguro</button>
+                    <button onclick="selectUrlOption(${index}, true)" id="p1-true-${index}" class="url-opt px-4 py-2 rounded-lg bg-white border border-gray-300 text-sm hover:border-if-green text-if-textMain transition font-medium">Seguro</button>
+                    <button onclick="selectUrlOption(${index}, false)" id="p1-false-${index}" class="url-opt px-4 py-2 rounded-lg bg-white border border-gray-300 text-sm hover:border-if-red text-if-textMain transition font-medium">Falso/Inseguro</button>
                 </div>
             </div>
-            <div id="p1-feedback-${index}" class="hidden p-3 bg-slate-900 rounded-lg text-xs text-slate-300 border-l-2"></div>
+            <div id="p1-feedback-${index}" class="hidden p-3 bg-gray-100 rounded-lg text-xs text-if-textMain border-l-2"></div>
         `;
     });
 }
@@ -47,11 +49,11 @@ function selectUrlOption(index, choice) {
     const btnTrue = document.getElementById(`p1-true-${index}`);
     const btnFalse = document.getElementById(`p1-false-${index}`);
     if(choice) {
-        btnTrue.className = "px-4 py-2 rounded-lg text-sm bg-emerald-500/20 border-2 border-emerald-500 text-emerald-400 font-semibold";
-        btnFalse.className = "px-4 py-2 rounded-lg bg-slate-900 border border-slate-700 text-sm opacity-50";
+        btnTrue.className = "px-4 py-2 rounded-lg text-sm bg-emerald-50 border-2 border-if-green text-if-green font-bold";
+        btnFalse.className = "px-4 py-2 rounded-lg bg-white border border-gray-200 text-sm text-if-textMuted opacity-50";
     } else {
-        btnFalse.className = "px-4 py-2 rounded-lg text-sm bg-red-500/20 border-2 border-red-500 text-red-400 font-semibold";
-        btnTrue.className = "px-4 py-2 rounded-lg bg-slate-900 border border-slate-700 text-sm opacity-50";
+        btnFalse.className = "px-4 py-2 rounded-lg text-sm bg-red-50 border-2 border-if-red text-if-red font-bold";
+        btnTrue.className = "px-4 py-2 rounded-lg bg-white border border-gray-200 text-sm text-if-textMuted opacity-50";
     }
 }
 
@@ -64,9 +66,9 @@ function checkUrls() {
         const isCorrect = urlAnswers[index] === item.isReal;
         if(isCorrect) {
             hits++;
-            feedbackBlock.className = "p-3 bg-slate-900/50 rounded-lg text-xs text-slate-300 border-l-4 border-emerald-500";
+            feedbackBlock.className = "p-3 bg-emerald-50/50 rounded-lg text-xs text-if-textMain border-l-4 border-if-green";
         } else {
-            feedbackBlock.className = "p-3 bg-slate-900/50 rounded-lg text-xs text-slate-300 border-l-4 border-red-500";
+            feedbackBlock.className = "p-3 bg-red-50/50 rounded-lg text-xs text-if-textMain border-l-4 border-if-red";
         }
         feedbackBlock.innerHTML = `<strong>${isCorrect ? '✅ Acertou' : '❌ Errou'}:</strong> ${item.explanation}`;
     });
@@ -100,8 +102,8 @@ function analyzePassword() {
     criteria.forEach(c => {
         if(c.check) passedCount++;
         listContainer.innerHTML += `
-            <li class="flex items-center gap-2 ${c.check ? 'text-emerald-400' : 'text-slate-500'}">
-                <i class="fa-solid ${c.check ? 'fa-circle-check text-emerald-500' : 'fa-circle text-slate-700'}"></i>
+            <li class="flex items-center gap-2 ${c.check ? 'text-if-green font-medium' : 'text-if-textMuted'}">
+                <i class="fa-solid ${c.check ? 'fa-circle-check text-if-green' : 'fa-circle text-gray-300'}"></i>
                 ${c.label}
             </li>
         `;
@@ -113,8 +115,8 @@ function analyzePassword() {
     if(pwd.length === 0) {
         bar.style.width = '0%';
         status.innerText = 'Muito Fraca';
-        status.className = 'font-bold text-red-500';
-        bar.className = 'bg-red-500 h-full w-0 transition-all duration-300';
+        status.className = 'font-bold text-if-red';
+        bar.className = 'bg-if-red h-full w-0 transition-all duration-300';
         return;
     }
 
@@ -123,20 +125,20 @@ function analyzePassword() {
 
     if(passedCount <= 2) {
         status.innerText = 'Muito Fraca 🚨';
-        status.className = 'font-bold text-red-500';
-        bar.className = 'bg-red-500 h-full transition-all duration-300';
+        status.className = 'font-bold text-if-red';
+        bar.className = 'bg-if-red h-full transition-all duration-300';
     } else if (passedCount <= 4) {
         status.innerText = 'Fraca ou Moderada ⚠️';
-        status.className = 'font-bold text-amber-500';
+        status.className = 'font-bold text-amber-600';
         bar.className = 'bg-amber-500 h-full transition-all duration-300';
     } else if (passedCount === 5) {
         status.innerText = 'Boa e Confiável 👍';
-        status.className = 'font-bold text-cyan-400';
-        bar.className = 'bg-cyan-400 h-full transition-all duration-300';
+        status.className = 'font-bold text-blue-600';
+        bar.className = 'bg-blue-500 h-full transition-all duration-300';
     } else {
         status.innerText = 'Excelente Blindagem! 🛡️';
-        status.className = 'font-bold text-emerald-400';
-        bar.className = 'bg-emerald-500 h-full transition-all duration-300';
+        status.className = 'font-bold text-if-green';
+        bar.className = 'bg-if-green h-full transition-all duration-300';
     }
 }
 
@@ -181,23 +183,23 @@ function initPuzzle3() {
     container.innerHTML = '';
     emailsData.forEach((item, index) => {
         container.innerHTML += `
-            <div class="bg-slate-950 rounded-2xl border border-slate-800 overflow-hidden">
-                <div class="bg-slate-900 p-4 border-b border-slate-800 space-y-1 text-xs md:text-sm">
-                    <div><span class="text-slate-500 font-medium">De:</span> <span class="font-mono text-cyan-400 font-semibold">${item.from}</span></div>
-                    <div><span class="text-slate-500 font-medium">Assunto:</span> <span class="text-slate-200 font-medium">${item.subject}</span></div>
+            <div class="bg-if-cardBg rounded-2xl border border-gray-200 shadow-sm overflow-hidden">
+                <div class="bg-gray-50 p-4 border-b border-gray-200 space-y-1 text-xs md:text-sm">
+                    <div><span class="text-if-textMuted font-medium">De:</span> <span class="font-mono text-blue-600 font-semibold">${item.from}</span></div>
+                    <div><span class="text-if-textMuted font-medium">Assunto:</span> <span class="text-if-textMain font-semibold">${item.subject}</span></div>
                 </div>
-                <div class="p-5 text-sm text-slate-300 bg-slate-950 font-sans leading-relaxed whitespace-pre-line">${item.body}</div>
-                <div class="bg-slate-900/60 p-4 border-t border-slate-800/80 flex flex-wrap justify-between items-center gap-3">
-                    <button onclick="toggleHint(${index})" class="text-xs text-amber-400 hover:underline flex items-center gap-1">
+                <div class="p-5 text-sm text-if-textMain bg-white font-sans leading-relaxed whitespace-pre-line">${item.body}</div>
+                <div class="bg-gray-50/80 p-4 border-t border-gray-200 flex flex-wrap justify-between items-center gap-3">
+                    <button onclick="toggleHint(${index})" class="text-xs text-amber-600 hover:underline flex items-center gap-1 font-medium">
                         <i class="fa-solid fa-circle-question"></i> Revelar Pista Técnica
                     </button>
                     <div class="flex gap-2">
-                        <button onclick="selectEmailChoice(${index}, false)" id="p3-leg-${index}" class="email-btn px-4 py-2 text-xs font-semibold rounded-lg bg-slate-950 border border-slate-700 hover:border-emerald-500 transition">Confíavel/Legítimo</button>
-                        <button onclick="selectEmailChoice(${index}, true)" id="p3-phish-${index}" class="email-btn px-4 py-2 text-xs font-semibold rounded-lg bg-slate-950 border border-slate-700 hover:border-red-500 transition">É Phishing ⚠️</button>
+                        <button onclick="selectEmailChoice(${index}, false)" id="p3-leg-${index}" class="email-btn px-4 py-2 text-xs font-semibold rounded-lg bg-white border border-gray-300 text-if-textMain hover:border-if-green transition">Confiável/Legítimo</button>
+                        <button onclick="selectEmailChoice(${index}, true)" id="p3-phish-${index}" class="email-btn px-4 py-2 text-xs font-semibold rounded-lg bg-white border border-gray-300 text-if-textMain hover:border-if-red transition">É Phishing ⚠️</button>
                     </div>
                 </div>
-                <div id="p3-hint-box-${index}" class="hidden p-4 bg-amber-950/20 border-t border-amber-800/40 text-xs text-amber-300"></div>
-                <div id="p3-exp-box-${index}" class="hidden p-4 bg-slate-900 border-t border-slate-800 text-xs text-slate-300"></div>
+                <div id="p3-hint-box-${index}" class="hidden p-4 bg-amber-50 border-t border-amber-200 text-xs text-amber-800 leading-relaxed"></div>
+                <div id="p3-exp-box-${index}" class="hidden p-4 bg-gray-50 border-t border-gray-200 text-xs text-if-textMain"></div>
             </div>
         `;
     });
@@ -209,11 +211,11 @@ function selectEmailChoice(index, isPhishingChoice) {
     const btnLeg = document.getElementById(`p3-leg-${index}`);
     const btnPhish = document.getElementById(`p3-phish-${index}`);
     if(isPhishingChoice) {
-        btnPhish.className = "px-4 py-2 text-xs font-bold rounded-lg bg-red-500/20 border-2 border-red-500 text-red-400";
-        btnLeg.className = "px-4 py-2 text-xs rounded-lg bg-slate-950 border border-slate-700 text-slate-500 opacity-40";
+        btnPhish.className = "px-4 py-2 text-xs font-bold rounded-lg bg-red-50 border-2 border-if-red text-if-red";
+        btnLeg.className = "px-4 py-2 text-xs rounded-lg bg-white border border-gray-200 text-if-textMuted opacity-40";
     } else {
-        btnLeg.className = "px-4 py-2 text-xs font-bold rounded-lg bg-emerald-500/20 border-2 border-emerald-500 text-emerald-400";
-        btnPhish.className = "px-4 py-2 text-xs rounded-lg bg-slate-950 border border-slate-700 text-slate-500 opacity-40";
+        btnLeg.className = "px-4 py-2 text-xs font-bold rounded-lg bg-emerald-50 border-2 border-if-green text-if-green";
+        btnPhish.className = "px-4 py-2 text-xs rounded-lg bg-white border border-gray-200 text-if-textMuted opacity-40";
     }
 }
 
@@ -232,9 +234,9 @@ function checkEmails() {
         const isCorrect = emailAnswers[index] === item.isPhishing;
         if(isCorrect) {
             hits++;
-            expBox.className = "p-4 bg-slate-900 border-l-4 border-emerald-500 text-xs text-slate-300";
+            expBox.className = "p-4 bg-emerald-50/40 border-l-4 border-if-green text-xs text-if-textMain";
         } else {
-            expBox.className = "p-4 bg-slate-900 border-l-4 border-red-500 text-xs text-slate-300";
+            expBox.className = "p-4 bg-red-50/40 border-l-4 border-if-red text-xs text-if-textMain";
         }
         expBox.innerHTML = `<strong>${isCorrect ? '✅ Resposta Correta' : '❌ Resposta Incorreta'}:</strong> ${item.explanation}`;
     });
@@ -312,7 +314,7 @@ function initPuzzle4() {
         let optionsHtml = '';
         item.opts.forEach((opt, oIndex) => {
             optionsHtml += `
-                <label onclick="selectQuizOpt(${qIndex}, ${oIndex})" id="quiz-lbl-${qIndex}-${oIndex}" class="quiz-opt-label block p-4 bg-slate-900 border border-slate-800 rounded-xl cursor-pointer hover:border-purple-500 transition text-sm">
+                <label onclick="selectQuizOpt(${qIndex}, ${oIndex})" id="quiz-lbl-${qIndex}-${oIndex}" class="quiz-opt-label block p-4 bg-white border border-gray-200 rounded-xl cursor-pointer hover:border-if-green transition text-sm text-if-textMain">
                     <input type="radio" name="quiz-${qIndex}" class="hidden">
                     ${opt}
                 </label>
@@ -320,10 +322,10 @@ function initPuzzle4() {
         });
 
         container.innerHTML += `
-            <div class="bg-slate-950 p-6 rounded-2xl border border-slate-800 space-y-4">
-                <h3 class="font-bold text-slate-100">${qIndex + 1}. ${item.q}</h3>
+            <div class="bg-if-cardBg p-6 rounded-2xl border border-gray-200 shadow-sm space-y-4">
+                <h3 class="font-bold text-if-textMain">${qIndex + 1}. ${item.q}</h3>
                 <div class="space-y-2">${optionsHtml}</div>
-                <div id="quiz-exp-${qIndex}" class="hidden p-4 bg-slate-900 rounded-xl text-xs border-l-2"></div>
+                <div id="quiz-exp-${qIndex}" class="hidden p-4 bg-gray-50 rounded-xl text-xs border-l-2"></div>
             </div>
         `;
     });
@@ -332,27 +334,24 @@ function initPuzzle4() {
 function selectQuizOpt(qIndex, oIndex) {
     quizAnswers[qIndex] = oIndex;
     
-    // Reseta cores visuais da questão específica
+    // Reseta para estilo de tema claro
     document.querySelectorAll(`[id^="quiz-lbl-${qIndex}-"]`).forEach(el => {
-        el.className = "block p-4 bg-slate-900 border border-slate-800 rounded-xl cursor-pointer hover:border-purple-500 transition text-sm text-slate-300";
+        el.className = "block p-4 bg-white border border-gray-200 rounded-xl cursor-pointer hover:border-if-green transition text-sm text-if-textMain";
     });
 
-    // Destaca a selecionada temporariamente
     const selectedLabel = document.getElementById(`quiz-lbl-${qIndex}-${oIndex}`);
-    selectedLabel.className = "block p-4 bg-purple-950/40 border-2 border-purple-500 rounded-xl cursor-pointer font-medium text-purple-300 text-sm";
-
     const item = quizData[qIndex];
     const expBox = document.getElementById(`quiz-exp-${qIndex}`);
     expBox.classList.remove('hidden');
 
     if(oIndex === item.correct) {
-        expBox.className = "p-4 bg-slate-900/60 rounded-xl text-xs border-l-4 border-emerald-500 text-slate-300";
+        expBox.className = "p-4 bg-emerald-50/60 rounded-xl text-xs border-l-4 border-if-green text-if-textMain";
         expBox.innerHTML = `<strong>✨ Resposta Correta!</strong> ${item.exp}`;
-        selectedLabel.className = "block p-4 bg-emerald-950/30 border-2 border-emerald-500 rounded-xl cursor-pointer font-medium text-emerald-400 text-sm";
+        selectedLabel.className = "block p-4 bg-emerald-50 border-2 border-if-green rounded-xl cursor-pointer font-semibold text-if-green text-sm";
     } else {
-        expBox.className = "p-4 bg-slate-900/60 rounded-xl text-xs border-l-4 border-red-500 text-slate-300";
+        expBox.className = "p-4 bg-red-50/60 rounded-xl text-xs border-l-4 border-if-red text-if-textMain";
         expBox.innerHTML = `<strong>❌ Incorreto.</strong> A alternativa certa é a opção: <em>"${item.opts[item.correct]}"</em>. ${item.exp}`;
-        selectedLabel.className = "block p-4 bg-red-950/30 border-2 border-red-500 rounded-xl cursor-pointer font-medium text-red-400 text-sm";
+        selectedLabel.className = "block p-4 bg-red-50 border-2 border-if-red rounded-xl cursor-pointer font-semibold text-if-red text-sm";
     }
     
     evaluateQuizTotal();
@@ -375,7 +374,7 @@ function evaluateQuizTotal() {
         if(totalHits === quizData.length) {
             feedbackText.innerText = "Excelente desempenho defensivo! Você domina os conceitos operacionais de controle de arquivos perigosos e contenção de Engenharia Social.";
         } else if(totalHits >= 3) {
-            feedbackText.innerText = "Bom nível prático, mas você ainda apresenta pequenas brechas que podem ser exploradas por malwares modernos. Revise os conceitos de controle de macros e extensões mascaradas.";
+            feedbackText.innerText = "Bom nível prático, mas você ainda apresenta pequenas brechas que podem ser exploradas por malwares modernos. Revise os conceitos de controle de macros e extensões macronadas.";
         } else {
             feedbackText.innerText = "Alerta crítico! Seus hábitos de clique e abertura de anexos oferecem altos riscos de comprometimento. Recomenda-se leitura atenta da Cartilha de Segurança da Informação.";
         }
@@ -392,12 +391,8 @@ function resetQuiz() {
 // --- GLOBAL INITIALIZATION BOOTSTRAP ---
 window.addEventListener('DOMContentLoaded', () => {
     switchTab('puzzle1');
-    
-    // Renderiza e injeta os dados estruturais de cada puzzle de forma isolada
     initPuzzle1();
     analyzePassword();
     initPuzzle3();
     initPuzzle4();
-    initPuzzle5();
-    initPuzzle6();
 });

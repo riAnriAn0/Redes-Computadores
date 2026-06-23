@@ -5,106 +5,137 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>IF Redes Puzzles</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        if: {
+                            green: '#2f9e41',      /* Verde Oficial IF */
+                            red: '#cd191e',        /* Vermelho Oficial IF */
+                            sidebarBg: '#f8f9fa',  /* Fundo claro da barra lateral */
+                            pageBg: '#f0f2f5',     /* Fundo geral da aplicação */
+                            cardBg: '#ffffff',     /* Fundo dos blocos de conteúdo */
+                            textMain: '#212529',   /* Texto principal */
+                            textMuted: '#6c757d'   /* Texto secundário/descrições */
+                        }
+                    }
+                }
+            }
+        }
+    </script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
-<body class="bg-slate-900 text-slate-100 font-sans min-h-screen flex flex-col md:flex-row">
+<body class="bg-if-pageBg text-if-textMain font-sans min-h-screen flex flex-col md:flex-row">
 
-    <aside class="w-full md:w-64 bg-slate-950 p-6 flex flex-col justify-between border-b md:border-b-0 md:border-r border-slate-800">
+    <aside class="w-full md:w-64 bg-if-sidebarBg p-6 flex flex-col justify-between border-b md:border-b-0 md:border-r border-gray-200">
         <div>
             <div class="flex items-center gap-3 mb-8">
-                <img src="img/ifma_logo.png" alt="logo-ifma" class="w-10">
-                <h1 class="text-xl font-bold tracking-wider bg-gradient-to-r from-emerald-400 to-cyan-400 bg-clip-text text-transparent">IF Redes Puzzles</h1>
+                <div class="grid grid-cols-3 gap-1 w-8 h-8 flex-shrink-0">
+                    <div class="bg-if-red rounded-sm"></div><div class="bg-if-green rounded-sm"></div><div class="bg-if-green rounded-sm"></div>
+                    <div class="bg-if-green rounded-sm"></div><div class="bg-if-green rounded-sm"></div><div class="bg-if-green rounded-sm"></div>
+                    <div class="bg-if-green rounded-sm"></div><div class="bg-if-green rounded-sm"></div><div class="bg-if-green rounded-sm"></div>
+                </div>
+                <h1 class="text-xl font-bold tracking-wider text-if-textMain">IF Redes Puzzles</h1>
             </div>
+            
             <nav class="space-y-2">
-                <button onclick="switchTab('puzzle1')" id="btn-puzzle1" class="tab-btn w-full flex items-center gap-3 px-4 py-3 rounded-lg text-left text-slate-400 hover:bg-slate-900 hover:text-slate-100 transition-all font-medium">
+                <button onclick="switchTab('puzzle1')" id="btn-puzzle1" class="tab-btn w-full flex items-center gap-3 px-4 py-3 rounded-lg text-left bg-emerald-50 text-if-green border border-if-green/20 transition-all font-medium">
                     <i class="fa-solid fa-link text-sm w-5"></i> 1. URLs Falsas
                 </button>
-                <button onclick="switchTab('puzzle2')" id="btn-puzzle2" class="tab-btn w-full flex items-center gap-3 px-4 py-3 rounded-lg text-left text-slate-400 hover:bg-slate-900 hover:text-slate-100 transition-all font-medium">
+                <button onclick="switchTab('puzzle2')" id="btn-puzzle2" class="tab-btn w-full flex items-center gap-3 px-4 py-3 rounded-lg text-left text-if-textMuted hover:bg-gray-100 hover:text-if-green transition-all font-medium">
                     <i class="fa-solid fa-key text-sm w-5"></i> 2. Força de Senha
                 </button>
-                <button onclick="switchTab('puzzle3')" id="btn-puzzle3" class="tab-btn w-full flex items-center gap-3 px-4 py-3 rounded-lg text-left text-slate-400 hover:bg-slate-900 hover:text-slate-100 transition-all font-medium">
+                <button onclick="switchTab('puzzle3')" id="btn-puzzle3" class="tab-btn w-full flex items-center gap-3 px-4 py-3 rounded-lg text-left text-if-textMuted hover:bg-gray-100 hover:text-if-green transition-all font-medium">
                     <i class="fa-solid fa-envelope-open-text text-sm w-5"></i> 3. Phishing E-mail
                 </button>
-                <button onclick="switchTab('puzzle4')" id="btn-puzzle4" class="tab-btn w-full flex items-center gap-3 px-4 py-3 rounded-lg text-left text-slate-400 hover:bg-slate-900 hover:text-slate-100 transition-all font-medium">
+                <button onclick="switchTab('puzzle4')" id="btn-puzzle4" class="tab-btn w-full flex items-center gap-3 px-4 py-3 rounded-lg text-left text-if-textMuted hover:bg-gray-100 hover:text-if-green transition-all font-medium">
                     <i class="fa-solid fa-virus text-sm w-5"></i> 4. Caça ao Malware
                 </button>
             </nav>
         </div>
-        <footer class="mt-8 pt-4 border-t border-slate-800 text-xs text-slate-500 text-center md:text-left">
+        <footer class="mt-8 pt-4 border-t border-gray-200 text-xs text-if-textMuted text-center md:text-left">
             Curso Ciência da Computação &copy; 2026
         </footer>
     </aside>
 
     <main class="flex-1 p-4 md:p-8 overflow-y-auto max-w-5xl mx-auto w-full">
         
-        <section id="puzzle1" class="tab-content hidden space-y-6">
-            <div class="border-b border-slate-800 pb-4">
-                <h2 class="text-2xl font-bold text-slate-100 flex items-center gap-2">
-                    <i class="fa-solid fa-link text-cyan-400"></i> Puzzle 1 — Detectar URLs Falsas
+        <section id="puzzle1" class="tab-content block space-y-6">
+            <div class="border-b border-gray-300 pb-4">
+                <h2 class="text-2xl font-bold text-if-textMain flex items-center gap-2">
+                    <i class="fa-solid fa-link text-if-green"></i> Puzzle 1 — Detectar URLs Falsas
                 </h2>
-                <p class="text-slate-400 mt-1">Analise os endereços abaixo e identifique quais são seguros/legítimos e quais são falsos/phishing.</p>
+                <p class="text-if-textMuted mt-1">Analise os endereços abaixo e identifique quais são seguros/legítimos e quais são falsos/phishing.</p>
             </div>
 
-            <div id="url-container" class="space-y-4"></div>
+            <div id="url-container" class="space-y-4">
+                <div class="bg-if-cardBg p-5 rounded-xl flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 border border-gray-200 shadow-sm">
+                    <span class="font-mono text-blue-600 font-semibold text-sm tracking-wide">https://www.google.com</span>
+                    <div class="flex gap-2 w-full sm:w-auto justify-end">
+                        <button class="px-4 py-2 text-xs font-bold rounded border border-gray-300 text-if-textMuted hover:bg-gray-50 transition">Seguro</button>
+                        <button class="px-4 py-2 text-xs font-bold rounded border border-if-red text-if-red bg-red-50 hover:bg-red-100 transition">Falso/Inseguro</button>
+                    </div>
+                </div>
+            </div>
 
             <div class="flex justify-between items-center pt-4">
-                <button onclick="checkUrls()" class="bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-600 hover:to-teal-700 text-white font-semibold px-6 py-3 rounded-xl transition shadow-lg shadow-emerald-950/40">
+                <button onclick="checkUrls()" class="bg-if-green hover:bg-emerald-700 text-white font-semibold px-6 py-3 rounded-xl transition shadow-md">
                     Ver Resultado
                 </button>
-                <div id="url-score" class="text-lg font-bold text-emerald-400 hidden"></div>
+                <div id="url-score" class="text-lg font-bold text-if-green hidden"></div>
             </div>
         </section>
 
         <section id="puzzle2" class="tab-content hidden space-y-6">
-            <div class="border-b border-slate-800 pb-4">
-                <h2 class="text-2xl font-bold text-slate-100 flex items-center gap-2">
-                    <i class="fa-solid fa-key text-yellow-400"></i> Puzzle 2 — Força de Senha
+            <div class="border-b border-gray-300 pb-4">
+                <h2 class="text-2xl font-bold text-if-textMain flex items-center gap-2">
+                    <i class="fa-solid fa-key text-if-green"></i> Puzzle 2 — Força de Senha
                 </h2>
-                <p class="text-slate-400 mt-1">Experimente criar uma senha forte e veja a análise dos critérios em tempo real.</p>
+                <p class="text-if-textMuted mt-1">Experimente criar uma senha forte e veja a análise dos critérios em tempo real.</p>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <div class="md:col-span-2 bg-slate-950 p-6 rounded-2xl border border-slate-800 space-y-4">
+                <div class="md:col-span-2 bg-if-cardBg p-6 rounded-2xl border border-gray-200 shadow-sm space-y-4">
                     <div>
-                        <label class="block text-sm font-medium text-slate-400 mb-2">Digite sua senha para teste:</label>
+                        <label class="block text-sm font-medium text-if-textMuted mb-2">Digite sua senha para teste:</label>
                         <div class="relative">
-                            <input type="text" id="password-input" oninput="analyzePassword()" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-3 text-slate-100 focus:outline-none focus:border-cyan-500 font-mono tracking-wider" placeholder="SuaSenhaForte123!">
+                            <input type="text" id="password-input" oninput="analyzePassword()" class="w-full bg-gray-50 border border-gray-300 rounded-xl px-4 py-3 text-if-textMain focus:outline-none focus:border-if-green font-mono tracking-wider" placeholder="SuaSenhaForte123!">
                         </div>
                     </div>
 
                     <div>
                         <div class="flex justify-between text-sm mb-1">
-                            <span class="text-slate-400">Força da Senha:</span>
-                            <span id="password-status" class="font-bold text-red-400">Muito Fraca</span>
+                            <span class="text-if-textMuted">Força da Senha:</span>
+                            <span id="password-status" class="font-bold text-if-red">Muito Fraca</span>
                         </div>
-                        <div class="w-full bg-slate-800 h-3 rounded-full overflow-hidden">
-                            <div id="password-bar" class="bg-red-500 h-full w-0 transition-all duration-300"></div>
+                        <div class="w-full bg-gray-200 h-3 rounded-full overflow-hidden">
+                            <div id="password-bar" class="bg-if-red h-full w-0 transition-all duration-300"></div>
                         </div>
                     </div>
 
                     <div class="pt-2">
-                        <span class="text-sm font-medium text-slate-400 block mb-3">Critérios de Segurança:</span>
-                        <ul id="criteria-list" class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-sm">
-                            </ul>
+                        <span class="text-sm font-medium text-if-textMuted block mb-3">Critérios de Segurança:</span>
+                        <ul id="criteria-list" class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-sm text-if-textMuted"></ul>
                     </div>
                 </div>
 
-                <div class="bg-slate-950 p-6 rounded-2xl border border-slate-800 space-y-4">
-                    <h3 class="font-semibold text-slate-200 flex items-center gap-2">
-                        <i class="fa-solid fa-lightbulb text-amber-400"></i> Exemplos Práticos
+                <div class="bg-if-cardBg p-6 rounded-2xl border border-gray-200 shadow-sm space-y-4">
+                    <h3 class="font-semibold text-if-textMain flex items-center gap-2">
+                        <i class="fa-solid fa-lightbulb text-if-green"></i> Exemplos Práticos
                     </h3>
                     <div class="space-y-3 text-xs">
-                        <div onclick="applyExample('123456')" class="p-3 bg-slate-900 rounded-lg border border-slate-800 hover:border-red-500 cursor-pointer transition">
-                            <span class="font-mono text-red-400 block font-bold">123456</span>
-                            <p class="text-slate-400 mt-1">Sequências óbvias e tamanho curto. Muito vulnerável a ataques automatizados.</p>
+                        <div onclick="applyExample('123456')" class="p-3 bg-gray-50 rounded-lg border border-gray-200 hover:border-if-red cursor-pointer transition">
+                            <span class="font-mono text-if-red block font-bold">123456</span>
+                            <p class="text-if-textMuted mt-1">Sequências óbvias e tamanho curto. Muito vulnerável a ataques automatizados.</p>
                         </div>
-                        <div onclick="applyExample('Carlos2024')" class="p-3 bg-slate-900 rounded-lg border border-slate-800 hover:border-amber-500 cursor-pointer transition">
-                            <span class="font-mono text-amber-400 block font-bold">Carlos2024</span>
-                            <p class="text-slate-400 mt-1">Nome + ano corrente. Fácil de adivinhar via engenharia social.</p>
+                        <div onclick="applyExample('Carlos2024')" class="p-3 bg-gray-50 rounded-lg border border-gray-200 hover:border-if-red cursor-pointer transition">
+                            <span class="font-mono text-if-red block font-bold">Carlos2024</span>
+                            <p class="text-if-textMuted mt-1">Nome + ano corrente. Fácil de adivinhar via engenharia social.</p>
                         </div>
-                        <div onclick="applyExample('X#9p!mK2@z7L')" class="p-3 bg-slate-900 rounded-lg border border-slate-800 hover:border-emerald-500 cursor-pointer transition">
-                            <span class="font-mono text-emerald-400 block font-bold">X#9p!mK2@z7L</span>
-                            <p class="text-slate-400 mt-1">Excelente! Combina todos os fatores de forma aleatória e imprevisível.</p>
+                        <div onclick="applyExample('X#9p!mK2@z7L')" class="p-3 bg-gray-50 rounded-lg border border-gray-200 hover:border-if-green cursor-pointer transition">
+                            <span class="font-mono text-if-green block font-bold">X#9p!mK2@z7L</span>
+                            <p class="text-if-textMuted mt-1">Excelente! Combina todos os fatores de forma aleatória e imprevisível.</p>
                         </div>
                     </div>
                 </div>
@@ -112,44 +143,43 @@
         </section>
 
         <section id="puzzle3" class="tab-content hidden space-y-6">
-            <div class="border-b border-slate-800 pb-4">
-                <h2 class="text-2xl font-bold text-slate-100 flex items-center gap-2">
-                    <i class="fa-solid fa-envelope-open-text text-red-400"></i> Puzzle 3 — Phishing por E-mail
+            <div class="border-b border-gray-300 pb-4">
+                <h2 class="text-2xl font-bold text-if-textMain flex items-center gap-2">
+                    <i class="fa-solid fa-envelope-open-text text-if-red"></i> Puzzle 3 — Phishing por E-mail
                 </h2>
-                <p class="text-slate-400 mt-1">Classifique as comunicações abaixo. Ative a pista se estiver em dúvida sobre os elementos de Spoofing.</p>
+                <p class="text-if-textMuted mt-1">Classifique as comunicações abaixo. Ative a pista se estiver em dúvida sobre os elementos de Spoofing.</p>
             </div>
 
             <div id="email-container" class="space-y-6"></div>
 
             <div class="flex justify-between items-center pt-4">
-                <button onclick="checkEmails()" class="bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-600 hover:to-teal-700 text-white font-semibold px-6 py-3 rounded-xl transition shadow-lg">
+                <button onclick="checkEmails()" class="bg-if-green hover:bg-emerald-700 text-white font-semibold px-6 py-3 rounded-xl transition shadow-lg">
                     Verificar E-mails
                 </button>
-                <div id="email-score" class="text-lg font-bold text-emerald-400 hidden"></div>
+                <div id="email-score" class="text-lg font-bold text-if-green hidden"></div>
             </div>
         </section>
 
         <section id="puzzle4" class="tab-content hidden space-y-6">
-            <div class="border-b border-slate-800 pb-4">
-                <h2 class="text-2xl font-bold text-slate-100 flex items-center gap-2">
-                    <i class="fa-solid fa-virus text-purple-400"></i> Puzzle 4 — Quiz: Caça ao Malware
+            <div class="border-b border-gray-300 pb-4">
+                <h2 class="text-2xl font-bold text-if-textMain flex items-center gap-2">
+                    <i class="fa-solid fa-virus text-if-red"></i> Puzzle 4 — Quiz: Caça ao Malware
                 </h2>
-                <p class="text-slate-400 mt-1">Responda às situações práticas do dia a dia e avalie seu comportamento defensivo.</p>
+                <p class="text-if-textMuted mt-1">Responda às situações práticas do dia a dia e avalie seu comportamento defensivo.</p>
             </div>
 
             <div id="quiz-container" class="space-y-6"></div>
 
-            <div id="quiz-result-card" class="bg-slate-950 p-6 rounded-2xl border border-slate-800 text-center space-y-4 hidden">
-                <h3 class="text-xl font-bold text-slate-200">Resultado do Diagnóstico</h3>
-                <p id="quiz-score-text" class="text-3xl font-extrabold text-purple-400"></p>
-                <p id="quiz-feedback" class="text-slate-300 max-w-xl mx-auto"></p>
-                <button onclick="resetQuiz()" class="bg-slate-800 hover:bg-slate-700 text-slate-200 px-4 py-2 rounded-lg text-sm transition">Refazer Quiz</button>
+            <div id="quiz-result-card" class="bg-if-cardBg p-6 rounded-2xl border border-gray-200 text-center space-y-4 shadow-sm hidden">
+                <h3 class="text-xl font-bold text-if-textMain">Resultado do Diagnóstico</h3>
+                <p id="quiz-score-text" class="text-3xl font-extrabold text-if-green"></p>
+                <p id="quiz-feedback" class="text-if-textMuted max-w-xl mx-auto"></p>
+                <button onclick="resetQuiz()" class="bg-gray-100 hover:bg-gray-200 text-if-textMain border border-gray-300 px-4 py-2 rounded-lg text-sm transition">Refazer Quiz</button>
             </div>
         </section>
 
     </main>
 
-    <script src="script.js">
-    </script>
+    <script src="script.js"></script>
 </body>
 </html>
